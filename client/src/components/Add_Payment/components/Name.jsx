@@ -23,7 +23,7 @@ const Name = ({ nameChange }) => {
                 }
                  text-base  h-full transition-all duration-300 text-black/70`}
             >
-              Payment
+              Accounts name
             </h1>
             <input
               type="text"

@@ -14,7 +14,7 @@ const Add_payment = () => {
       <div className="bg-white shadow-md w-[40%]  p-5 rounded-lg">
         <div className="w-full  overflow-y-auto  h-[90%] flex flex-col ">
           <div className="flex flex-row items-center justify-between">
-            <h1 className="text-xl font-bold">Add Transactions</h1>
+            <h1 className="text-xl font-bold">Add Accounts</h1>
             <Icon
               onClick={() => setIsAddPayment(false)}
               icon="iconoir:cancel"

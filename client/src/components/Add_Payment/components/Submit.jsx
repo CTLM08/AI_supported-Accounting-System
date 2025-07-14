@@ -1,5 +1,19 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React from "react";
+import React, { use } from "react";
+
+// async function submitTransaction() {
+//     setLoading(true);
+//     if (transaction_type == "Income") {
+//       await updateDoc(doc(firestore, "user", uid), {
+//         income: arrayUnion({
+//           amount: amount,
+//           cato: type,
+//           date: date,
+//           payment: paymentType,
+//         }),
+//       });
+//       updatePayment(amount, paymentType);
+// }
 
 const Submit = () => {
   return (
