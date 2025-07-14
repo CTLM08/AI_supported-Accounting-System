@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
-import { signInWithGoogle } from "../../../../firebase.js ";
+import { signInWithGoogle } from "../../../../firebase";
 
 const Function = () => {
   return (
