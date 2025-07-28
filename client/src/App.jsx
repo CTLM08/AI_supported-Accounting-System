@@ -16,6 +16,8 @@ import { auth, firestore } from "../firebase";
 import { doc, getDoc, onSnapshot } from "@firebase/firestore";
 import Add from "./components/Add";
 import Add_payment from "./components/Add_Payment";
+import AddCategory from "./components/Add_Category";
+import Chat from "./pages/Chat";
 
 export const appContext = createContext({
   userData: {},
@@ -29,13 +31,14 @@ export const appContext = createContext({
   currentDate: null,
   isAddPayment: false,
   setIsAddPayment: () => {},
+  isAddCategory: false,
+  setIsAddCategory: () => {},
 });
 const App = () => {
-  //get the url path
   const currentPath = useLocation();
   const [user, setUser] = useState(null);
   const [userDoc, setUserDoc] = useState();
-
+  const [isAddCategory, setIsAddCategory] = useState(false);
   const [isAddPayment, setIsAddPayment] = useState(false);
   const [Front, SetFront] = useState(false);
   const [IsAdd, SetIsAdd] = useState(false);
@@ -78,6 +81,8 @@ const App = () => {
         currentDate,
         isAddPayment,
         setIsAddPayment,
+        isAddCategory,
+        setIsAddCategory,
       }}
     >
       <div className="flex flex-row h-screen w-full font-roboto relative ">
@@ -107,6 +112,15 @@ const App = () => {
             ""
           )}
         </>
+        <>
+          {isAddCategory ? (
+            <div className="fixed w-full h-screen">
+              <AddCategory transaction_type={isAddCategory} />
+            </div>
+          ) : (
+            ""
+          )}
+        </>
         <div
           className={`overflow-y-auto w-full  bg-gray-100 ${
             currentPath.pathname === "/login" ||
@@ -125,6 +139,7 @@ const App = () => {
             <Route path="/budget" element={<Budget />} />
             <Route path="/advisor" element={<Advisor />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/chat" element={<Chat />} />
             {/* Add more routes as needed */}
           </Routes>
         </div>

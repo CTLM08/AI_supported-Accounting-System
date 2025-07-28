@@ -1,22 +1,11 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
-import React, { useContext, useEffect, useState } from "react";
-import { appContext } from "../../../App";
-import { doc, getDoc } from "@firebase/firestore";
+import React, { useEffect, useState } from "react";
 
-const Payment = ({ paymentChange }) => {
+const Transactions_Type = ({ typeChange, defaultType }) => {
   const [expand, SetExpand] = useState(false);
-  const [type, setType] = useState("");
-  const { userData } = useContext(appContext);
-  const [userType, setUserType] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [type, setType] = useState(defaultType);
   useEffect(() => {
-    setLoading(true);
-    setUserType(userData?.payment);
-    console.log(userData?.payment);
-    setLoading(false);
-  }, []);
-  useEffect(() => {
-    paymentChange(type);
+    typeChange(type);
   }, [type]);
   return (
     <div className="">
@@ -36,7 +25,7 @@ const Payment = ({ paymentChange }) => {
                   : "text-base flex items-center justify-center h-full"
               } transition-all duration-300 text-black/70`}
             >
-              Select Payment Type
+              Select Transactions Type
             </h1>
             <div
               className={`overflow-hidden duration-300 transition-all ease-linear ${
@@ -69,26 +58,40 @@ const Payment = ({ paymentChange }) => {
           </button>
           {/* expand */}
           <div
-            className={` transition-all px-4 ease-linear flex flex-col overflow-hidden ${
+            className={` transition-all px-4 ease-linear flex flex-row overflow-hidden ${
               expand
                 ? "py-4 border-x-2 border-b-2  rounded-b-xl"
                 : "py-0 max-h-0"
             }`}
           >
-            {/* data */}
-            {userType?.map((_type) => (
-              <div className="w-full p-1 flex flex-col gap-2">
-                <div
-                  onClick={() => {
-                    setType(_type.name);
-                    SetExpand(false);
-                  }}
-                  className="border-b-2 flex flex-row  items-center gap-2 hover:gap-3  border-black/40 p-2 hover:border-0 hover:rounded-lg transition-all duration-75 hover:bg-gray-100 "
-                >
-                  {_type.name}
-                </div>
+            <div className="w-full p-1 flex flex-col gap-2">
+              <div
+                onClick={() => {
+                  setType("Income");
+                  SetExpand(false);
+                }}
+                className="border-b-2 flex flex-row  items-center gap-2 hover:gap-3  border-black/40 p-2 hover:border-0 hover:rounded-lg transition-all duration-75 hover:bg-gray-100 "
+              >
+                <Icon
+                  icon="material-symbols-light:login-outline-rounded"
+                  className="h-7 w-7"
+                />
+                Income
               </div>
-            ))}
+              <div
+                onClick={() => {
+                  setType("Expenses");
+                  SetExpand(false);
+                }}
+                className="border-b-2 flex flex-row  items-center gap-2 hover:gap-3  border-black/40 p-2 hover:border-0 hover:rounded-lg transition-all duration-75 hover:bg-gray-100 "
+              >
+                <Icon
+                  icon="material-symbols-light:logout-rounded"
+                  className="h-7 w-7"
+                />
+                Expenses
+              </div>
+            </div>
           </div>
         </div>
         {/* dropdown end */}
@@ -97,4 +100,4 @@ const Payment = ({ paymentChange }) => {
   );
 };
 
-export default Payment;
+export default Transactions_Type;

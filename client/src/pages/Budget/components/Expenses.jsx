@@ -26,7 +26,7 @@ const Expenses = () => {
           >
             <div className="flex flex-row justify-between w-full">
               <div className="flex flex-row gap-2 items-center">
-                <p className="font-bold">{Expenses.source}</p>
+                <p className="font-bold">{Expenses.cato}</p>
                 <p className="text-sm text-black/50">{Expenses.date}</p>
               </div>
               <div className="font-bold text-[#FF6384]">${Expenses.amount}</div>

@@ -7,6 +7,7 @@ require("dotenv").config();
 const port = 3000;
 const app = express();
 const API_KEY = process.env.ALPHA_VANTAGE_API_KEY;
+const AI_API_KEY = process.env.AI_API_KEY;
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -30,6 +31,50 @@ app.get("/api/stocks", async (req, res) => {
     res.json(results);
   } catch (err) {
     res.status(500).json({ error: "Error fetching stock data" });
+  }
+});
+
+app.post("/ai/chat", async (req, res) => {
+  const { messages, user } = req.body;
+  const userSummary = `Name: ${user.userName}Income:${user.income
+    .map((i) => `- ${i.cato}: $${i.amount}`)
+    .join("\n")}Expenses:${user.expenses
+    .map((e) => `- ${e.cato}: $${e.amount}`)
+    .join("\n")}`;
+  const prompt = `
+    The following is a conversation with the user. The user profile is:${userSummary}
+
+    Conversation:
+    ${messages.map((m) => `${m.role}: ${m.content}`).join("\n")}
+
+    Assistant:
+  `;
+  const finalMessages = [
+    {
+      role: "system",
+      content: `You are a financial assistant. The user's profile is:\n${userSummary}`,
+    },
+    ...messages, // append user/assistant historical messages
+  ];
+  try {
+    const result = await axios.post(
+      "https://api.together.xyz/v1/chat/completions",
+      {
+        model: "mistralai/Mistral-7B-Instruct-v0.2", // 或 llama3 模型
+        messages: finalMessages,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${AI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.json({ reply: result.data.choices[0].message.content });
+  } catch (error) {
+    console.error("❌ 后端出错:", error.message);
+    res.status(500).json({ error: "调用 Together API 出错" });
   }
 });
 

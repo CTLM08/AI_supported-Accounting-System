@@ -87,12 +87,12 @@ const Type = ({ typeChange, transactions }) => {
                   <div className="w-full p-1 flex flex-col gap-2">
                     <div
                       onClick={() => {
-                        setType(_type);
+                        setType(_type.name);
                         SetExpand(false);
                       }}
                       className="border-b-2 flex flex-row  items-center gap-2 hover:gap-3  border-black/40 p-2 hover:border-0 hover:rounded-lg transition-all duration-75 hover:bg-gray-100 "
                     >
-                      {_type}
+                      {_type.name}
                     </div>
                   </div>
                 ))}

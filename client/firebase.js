@@ -20,11 +20,13 @@ export const auth = firebase.auth();
 
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
 
-export const signOut = () => {
-  auth.signOut();
+export const signOut = (navigate) => {
+  auth.signOut().then(() => {
+    navigate("/login");
+  });
 };
 
-export const signInWithGoogle = () => {
+export const signInWithGoogle = (navigate) => {
   auth
     .signInWithPopup(GoogleProvider)
     .then(async ({ user, additionalUserInfo }) => {
@@ -44,5 +46,8 @@ export const signInWithGoogle = () => {
     })
     .catch((error) => {
       throw error;
+    })
+    .then(() => {
+      navigate("/dashboard");
     });
 };

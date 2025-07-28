@@ -42,15 +42,22 @@ const Spending_category = () => {
   // }, [cato]);
   useEffect(() => {
     // skip if not ready
-    if (!userData?.Expenses_cato || !userData?.expenses) return;
+    if (
+      !userData?.Expenses_cato ||
+      !userData?.expenses ||
+      !Array.isArray(userData.Expenses_cato) ||
+      !Array.isArray(userData.expenses)
+    )
+      return;
 
     setLoading(true);
 
     const fullCato = userData.Expenses_cato.map((cat) => {
       const total = userData.expenses.reduce((sum, exp) => {
+        console.log(cat.name);
         const expDate = new Date(exp.date);
         if (
-          exp.cato === cat &&
+          exp.cato === cat.name &&
           expDate.getMonth() === currentDate.getMonth() &&
           expDate.getFullYear() === currentDate.getFullYear()
         ) {
@@ -60,8 +67,9 @@ const Spending_category = () => {
       }, 0);
 
       return {
-        cato: cat,
+        cato: cat.name,
         amount: total,
+        colour: cat.colour,
       };
     });
 
@@ -70,35 +78,13 @@ const Spending_category = () => {
   }, [userData, currentDate]); // <— make sure these are in deps
 
   //calculate the total spending for each category
-  function calculateTotalSpending() {
-    if (!Array.isArray(userData?.expenses)) return;
-    const updatedCato = cato.map((item) => {
-      const total = userData.expenses.reduce((sum, expense) => {
-        if (
-          expense.cato === item.cato &&
-          new Date(expense.date).getMonth() === currentDate.getMonth() &&
-          new Date(expense.date).getFullYear() === currentDate.getFullYear()
-        ) {
-          return sum + Number(expense.amount);
-        }
-        return sum;
-      }, 0);
-      return { ...item, amount: total };
-    });
-    setCato(updatedCato);
-  }
+
   const data = {
     labels: cato.map((item) => item.cato),
     datasets: [
       {
         data: cato.map((item) => item.amount),
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-        ],
+        backgroundColor: cato.map((item) => item.colour),
         hoverOffset: 4,
       },
     ],

@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import Accounts from "./components/Accounts";
 import Goal from "./components/Goal";
 import { appContext } from "../../App";
+import Income from "./components/Income";
+import Expenses from "./components/Expenses";
 
 const Account = () => {
   const { setIsAddPayment, isAddPayment } = useContext(appContext);
@@ -23,6 +25,16 @@ const Account = () => {
       </div>
       <div className="p-4 rounded-lg shadow-md w-full bg-white h-[50%]">
         <Goal />
+      </div>
+      <div className="rounded-lg w-full  max-h-[30%] flex flex-row gap-3">
+        <div className="w-[50%]  h-80 bg-white p-4 rounded-lg shadow-md flex flex-col">
+          <h1 className="text-xl font-bold pl-1">Income Category</h1>
+          <Income />
+        </div>
+        <div className="w-[50%] h-80 overflow-hidden bg-white p-4 rounded-lg shadow-md flex flex-col">
+          <h1 className="text-xl font-bold pl-1">Expenses Category</h1>
+          <Expenses />
+        </div>
       </div>
     </div>
   );

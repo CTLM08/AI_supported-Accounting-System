@@ -1,8 +1,11 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React from "react";
 import { signInWithGoogle } from "../../../../firebase";
+import { appContext } from "../../../App";
+import { useContext } from "react";
 
 const Function = () => {
+  const { navigate } = useContext(appContext);
   return (
     <div className="w-[70%] rounded-lg flex flex-col gap-4 justify-start items-start bg-white p-11 shadow-md">
       <div className="flex flex-col items-start">
@@ -42,7 +45,9 @@ const Function = () => {
       </div>
       <div className="w-full flex flex-row justify-between items-center mt-4 gap-5">
         <button
-          onClick={() => signInWithGoogle()}
+          onClick={() => {
+            signInWithGoogle(navigate);
+          }}
           className="w-full hover:border-[#FF6384] hover:gap-4 font-semibold hover:font-bold hover:bg-[#FF6384] text-black/70 hover:text-white transition-all duration-200 flex flex-row items-center gap-2 justify-center rounded-lg border-2 border-black/60 p-3"
         >
           <Icon icon="flat-color-icons:google" className="w-6 h-6" />
