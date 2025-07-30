@@ -13,11 +13,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, firestore } from "../firebase";
-import { doc, getDoc, onSnapshot } from "@firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "@firebase/firestore";
 import Add from "./components/Add";
 import Add_payment from "./components/Add_Payment";
 import AddCategory from "./components/Add_Category";
 import Chat from "./pages/Chat";
+import axios from "axios";
 
 export const appContext = createContext({
   userData: {},
@@ -33,18 +34,22 @@ export const appContext = createContext({
   setIsAddPayment: () => {},
   isAddCategory: false,
   setIsAddCategory: () => {},
+  setIsAddStanding: () => {},
+  isAddStanding: false,
 });
 const App = () => {
   const currentPath = useLocation();
   const [user, setUser] = useState(null);
   const [userDoc, setUserDoc] = useState();
   const [isAddCategory, setIsAddCategory] = useState(false);
+  const [isAddStanding, setIsAddStanding] = useState(false);
   const [isAddPayment, setIsAddPayment] = useState(false);
   const [Front, SetFront] = useState(false);
   const [IsAdd, SetIsAdd] = useState(false);
   const [userData, setUserData] = useState();
   const navigate = useNavigate();
   const [uid, setUid] = useState();
+  const [score, setScore] = useState();
   const currentDate = new Date();
   useEffect(() => {
     onAuthStateChanged(auth, (_user) => {
@@ -68,6 +73,28 @@ const App = () => {
       });
     }
   }, [uid]);
+  useEffect(() => {
+    checkScore();
+  }, [userData]);
+  useEffect(() => {
+    if (userData) {
+      updateDoc(doc(firestore, "user", uid), {
+        financial_score: score,
+      });
+    }
+  }, [score]);
+  const checkScore = async () => {
+    try {
+      const res = await axios.post("http://localhost:3000/ai/score", {
+        user: userData,
+      });
+      console.log("Score:", res.data.score);
+      setScore(Number(res.data.score));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {}, [userData]);
   return (
     <appContext.Provider
       value={{
@@ -83,6 +110,8 @@ const App = () => {
         setIsAddPayment,
         isAddCategory,
         setIsAddCategory,
+        isAddStanding,
+        setIsAddStanding,
       }}
     >
       <div className="flex flex-row h-screen w-full font-roboto relative ">

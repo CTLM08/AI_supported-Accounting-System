@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { appContext } from "../../../App";
 
 const Accounts = () => {
-  const accounts = [
-    { name: "Main Account", amount: "RM 5,000" },
-    { name: "Bank", amount: "RM 3,200" },
-    { name: "Debit Card", amount: "RM 1,000" },
-    { name: "Investment", amount: "RM 8,500" },
-    { name: "Touch 'n Go", amount: "RM 250" },
-  ];
+  const { userData } = useContext(appContext);
+  const [accounts, setAccounts] = useState([]);
+  useEffect(() => {
+    if (userData) {
+      setAccounts(userData?.payment);
+    }
+  }, [userData]);
 
   return (
     <div>

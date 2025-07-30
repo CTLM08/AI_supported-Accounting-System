@@ -40,6 +40,12 @@ export const signInWithGoogle = (navigate) => {
           income: [],
           goals: [],
           Interested_Stock: [],
+          Expenses_cato: [],
+          Income_cato: [],
+          advise: [],
+          financial_score: 0,
+          payment: [],
+
           // ...
         });
       }
