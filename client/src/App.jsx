@@ -20,6 +20,7 @@ import AddCategory from "./components/Add_Category";
 import Chat from "./pages/Chat";
 import axios from "axios";
 import Add_Goal from "./components/Add_Goal";
+import Add_Standing_Order from "./components/Add_Standing_Order";
 
 export const appContext = createContext({
   userData: {},
@@ -142,6 +143,15 @@ const App = () => {
           {isAddPayment ? (
             <div className="fixed w-full h-screen">
               <Add_payment />
+            </div>
+          ) : (
+            ""
+          )}
+        </>
+        <>
+          {isAddStanding ? (
+            <div className="fixed w-full h-screen">
+              <Add_Standing_Order />
             </div>
           ) : (
             ""

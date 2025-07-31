@@ -45,6 +45,7 @@ export const signInWithGoogle = (navigate) => {
           advise: [],
           financial_score: 0,
           payment: [],
+          standing_order: [],
 
           // ...
         });

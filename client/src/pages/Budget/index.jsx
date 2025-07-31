@@ -3,7 +3,7 @@ import Monthly_summary from "./components/Monthly_summary";
 import Monthly_graph from "./components/Monthly_graph";
 import Income from "./components/Income";
 import Expenses from "./components/Expenses";
-import Recent_Transactions from "./components/Recent_Transactions";
+
 import Standing_Order from "./components/Standing_Order";
 
 const Budget = () => {
@@ -26,12 +26,8 @@ const Budget = () => {
           <Expenses />
         </div>
       </div>
-      <div className="w-full h-[40%] rounded-lg flex flex-row gap-3">
-        <div className="w-[50%] h-full bg-white p-4 rounded-lg shadow-md">
-          <h1 className="text-xl font-bold">Recent Transactions</h1>
-          <Recent_Transactions />
-        </div>
-        <div className="w-[50%] h-full bg-white p-4 rounded-lg shadow-md">
+      <div className="w-full h-[40%] rounded-lg flex flex-row gap-3 p-1">
+        <div className="w-full h-full bg-white p-4 rounded-lg shadow-md">
           <Standing_Order />
         </div>
       </div>
