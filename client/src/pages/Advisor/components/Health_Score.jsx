@@ -41,6 +41,7 @@ const Health_Score = () => {
   };
   useEffect(() => {
     Grading();
+    console.log(score);
   }, [score]);
   return (
     <div className="flex flex-col w-full h-full justify-between">
@@ -81,7 +82,10 @@ const Health_Score = () => {
       </div>
 
       <div className="h-5 rounded-full w-full bg-gray-100 overflow-hidden">
-        <div className={`h-5 rounded-full w-[${score}%] bg-${colour}`}></div>
+        <div
+          className={`h-5 rounded-full bg-${colour}`}
+          style={{ width: `${score}%` }}
+        ></div>
       </div>
     </div>
   );

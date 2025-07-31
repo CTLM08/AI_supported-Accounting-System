@@ -44,14 +44,14 @@ const Expenses = () => {
               <div className="flex flex-row gap-2 items-center">
                 <p className="font-bold">{cato.cato}</p>
               </div>
-              <div className="font-bold text-[#4BC0C0]">${cato.amount}</div>
+              <div className="font-bold text-[#FF6384]">${cato.amount}</div>
             </div>
           </div>
         ))}
       </div>
       <button
         onClick={() => setIsAddCategory("Expenses")}
-        className="mt-3 p-3 rounded-lg justify-center font-bold border-[#4BC0C0] border-2  transition-all duration-200 hover:bg-white  hover:text-[#4BC0C0] bg-[#4BC0C0]  text-white w-full"
+        className="mt-3 p-3 rounded-lg justify-center font-bold border-[#FF6384] border-2  transition-all duration-200 hover:bg-white  hover:text-[#FF6384] bg-[#FF6384]  text-white w-full"
       >
         Add Income Category
       </button>

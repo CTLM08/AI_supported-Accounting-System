@@ -19,6 +19,7 @@ import Add_payment from "./components/Add_Payment";
 import AddCategory from "./components/Add_Category";
 import Chat from "./pages/Chat";
 import axios from "axios";
+import Add_Goal from "./components/Add_Goal";
 
 export const appContext = createContext({
   userData: {},
@@ -36,6 +37,8 @@ export const appContext = createContext({
   setIsAddCategory: () => {},
   setIsAddStanding: () => {},
   isAddStanding: false,
+  isAddGoal: false,
+  setIsAddGoal: () => {},
 });
 const App = () => {
   const currentPath = useLocation();
@@ -44,6 +47,7 @@ const App = () => {
   const [isAddCategory, setIsAddCategory] = useState(false);
   const [isAddStanding, setIsAddStanding] = useState(false);
   const [isAddPayment, setIsAddPayment] = useState(false);
+  const [isAddGoal, setIsAddGoal] = useState(false);
   const [Front, SetFront] = useState(false);
   const [IsAdd, SetIsAdd] = useState(false);
   const [userData, setUserData] = useState();
@@ -75,7 +79,7 @@ const App = () => {
   }, [uid]);
   useEffect(() => {
     checkScore();
-  }, [userData]);
+  }, [userData?.income, userData?.expenses]);
   useEffect(() => {
     if (userData) {
       updateDoc(doc(firestore, "user", uid), {
@@ -112,6 +116,8 @@ const App = () => {
         setIsAddCategory,
         isAddStanding,
         setIsAddStanding,
+        setIsAddGoal,
+        isAddGoal,
       }}
     >
       <div className="flex flex-row h-screen w-full font-roboto relative ">
@@ -136,6 +142,15 @@ const App = () => {
           {isAddPayment ? (
             <div className="fixed w-full h-screen">
               <Add_payment />
+            </div>
+          ) : (
+            ""
+          )}
+        </>
+        <>
+          {isAddGoal ? (
+            <div className="fixed w-full h-screen">
+              <Add_Goal />
             </div>
           ) : (
             ""

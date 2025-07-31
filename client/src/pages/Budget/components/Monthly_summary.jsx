@@ -90,14 +90,14 @@ const Monthly_summary = () => {
           <span className="flex flex-row justify-between items-center">
             <span className="text-black/50">Budget Progress</span>
             <span className="text-[#4BC0C0] font-semibold">
-              {Math.round((expenses / income) * 100)}%
+              {Math.round(1 - expenses / income) * 100}%
             </span>
           </span>
           <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
             <div
               className="bg-[#4BC0C0] h-3 rounded-full"
               style={{
-                width: `${Math.round((expenses / income) * 100)}%`,
+                width: `${Math.round(1 - expenses / income) * 100}%`,
               }}
             ></div>
           </div>
